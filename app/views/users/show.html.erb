@@ -1,17 +1,14 @@
-<div class="profile-container">
-  <h3 class="profile-name"><%= @user.name %></h3>
-  <%= attachment_image_tag @user, :profile_image, :fill, 100, 100, format: 'jpeg', fallback: "no_image.jpg" %>
-  <% if @user.id == current_user.id %>
-    <p><%= link_to "プロフィール編集", edit_user_path(@user) %></p>
-  <% end %>
-</div>
+<% if @user.id == current_user.id %>
+  <p><%= link_to "プロフィール編集", edit_user_path(@user) %></p>
+<% end %>
 <% @books.each do |book| %>
 <div>
   <%= link_to book_path(book.id) do %>
   <% end %>
-  <p>投稿ユーザー画像：<%= attachment_image_tag book.user, :profile_image, :fill, 60, 60, fallback: "no_image.jpg" %></p>
-  <p>title：<%= book.title %></p>
-  <p>body：<%= book.body %></p>
-  <p>ユーザーネーム：<%= book.user.name %></p>
+  <p><%= attachment_image_tag book.user, :profile_image, :fill, 60, 60, fallback: "no_image.jpg" %></p>
+  <span>
+    <%= link_to book.title, book_path(book.id) %>
+  </span>
+  <p><%= book.body %></p>
 </div>
 <% end %>
