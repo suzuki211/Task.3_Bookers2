@@ -1,8 +1,31 @@
+<div class="profile-container">
+  <%= attachment_image_tag current_user, :profile_image, :fill, 100, 100, format: 'jpeg', fallback: "no_image.jpg" %>
+  <h3 class="profile-name"><%= current_user.name %></h3>
+  <h3 class="profile-introduction"><%= current_user.introduction %></h3>
+  <p><%= link_to "プロフィール編集", edit_user_path(current_user) %></p>
+</div>
+ <div>
+   <h2>New book</h2>
+  　<% if @book.errors.any? %>
+   　<%= @book.errors.count %>error prohibited this book from being saved:
+  　 <% @book.errors.full_messages.each do |message| %>
+    　 <%= message %>
+  　 <% end %>
+　  <% end %>
+    <%= form_with model:@book, local:true do |f| %>
+    <div class="field">
+     <h4 class="field1">title</h4>
+     <%= f.text_field :title %>
+    </div>
+    <div class="field">
+     <h4 class="field1" >Body</h4>
+     <%= f.text_area :body %>
+    </div>
+    <%= f.submit 'Create Book' %>
+    <% end %>
+  </div>
 <% @books.each do |book| %>
 <div>
- <%= link_to book_path(book.id) do %>
-  <%= attachment_image_tag book, :image %>
- <% end %>
  <%= link_to user_path(book.user_id) do %>
   <%= attachment_image_tag book.user, :profile_image, :fill, 60, 60, fallback: "no_image.jpg" %>
  <% end %>
